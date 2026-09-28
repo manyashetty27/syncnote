@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Real-time collaborative notes application powered by Socket.IO." />
+  <title>SyncNote — Collaborative Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">S</div>
+        <div>
+          <strong>SyncNote</strong>
+          <span>Real-time workspace</span>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="avatar" id="profileAvatar">G</div>
+        <div>
+          <strong id="profileName">Guest</strong>
+          <span>Editor</span>
+        </div>
+        <button class="icon-btn" id="changeNameBtn" title="Change name">✎</button>
+      </div>
+
+      <div class="sidebar-heading">
+        <span>Your notes</span>
+        <button class="new-note-btn" id="newNoteBtn">+ New</button>
+      </div>
+
+      <div class="note-list" id="noteList"></div>
+
+      <div class="sidebar-footer">
+        <div class="connection-pill" id="connectionPill">
+          <span class="status-dot"></span>
+          <span id="connectionText">Connecting...</span>
+        </div>
+        <small>Socket.IO collaboration</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb">
+          <span>Workspace</span><span>/</span><strong id="breadcrumbTitle">Team Meeting Notes</strong>
+        </div>
+        <div class="top-actions">
+          <div class="autosave" id="saveStatus">Saved</div>
+          <button class="share-btn" id="shareBtn">Share note</button>
+        </div>
+      </header>
+
+      <section class="editor-area">
+        <div class="editor-header">
+          <div class="title-wrap">
+            <input id="noteTitle" class="note-title" maxlength="80" value="Team Meeting Notes" aria-label="Note title" />
+            <div class="meta-line">
+              <span id="lastUpdated">Updated just now</span>
+              <span>•</span>
+              <span id="revisionLabel">Revision 1</span>
+            </div>
+          </div>
+          <div class="presence-panel">
+            <div class="presence-avatars" id="presenceAvatars"></div>
+            <div class="presence-copy">
+              <strong id="activeCount">1 active</strong>
+              <span id="typingStatus">Only you</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button data-action="bold"><b>B</b></button>
+          <button data-action="italic"><i>I</i></button>
+          <button data-action="heading">H1</button>
+          <button data-action="bullet">• List</button>
+          <button data-action="code">Code</button>
+          <span class="toolbar-separator"></span>
+          <button id="focusEditor">Focus editor</button>
+          <span class="toolbar-spacer"></span>
+          <span class="shortcut">Ctrl + S</span>
+        </div>
+
+        <div class="editor-card">
+          <textarea id="editor" spellcheck="true" aria-label="Collaborative note editor"></textarea>
+          <div class="editor-footer">
+            <span id="wordCount">0 words</span>
+            <span id="editorHint">Changes sync automatically</span>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="activity-heading">
+            <div>
+              <span class="eyebrow">Live activity</span>
+              <h2>Collaboration feed</h2>
+            </div>
+            <span class="live-badge"><span></span> LIVE</span>
+          </div>
+          <div id="activityFeed" class="activity-feed">
+            <div class="activity-item system">Connected to the collaboration server.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
